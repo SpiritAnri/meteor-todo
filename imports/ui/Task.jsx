@@ -10,7 +10,6 @@ export const Task = ({
   const classes = classnames('task', {
     checked: Boolean(task.isChecked),
   })
-
   return (
     <li className={classes}>
       <button onClick={() => onDeleteClick(task)}>&times;</button>

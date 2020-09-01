@@ -13,7 +13,8 @@
     "classnames": "^2.2.6",
     "meteor-node-stubs": "^1.0.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "simpl-schema": "^1.10.0"
   },
   "meteor": {
     "mainModule": {

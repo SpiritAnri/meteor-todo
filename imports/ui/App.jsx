@@ -3,19 +3,32 @@ import { Meteor } from 'meteor/meteor'
 import { useTracker } from 'meteor/react-meteor-data'
 import _ from 'lodash'
 import { Task } from './Task'
-import { Tasks } from '/imports/api/tasks'
+import { Tasks, tasksRemove, tasksSetChecked } from '/imports/api/tasks'
 import { TaskForm } from './TaskForm'
 import { LoginForm } from './LoginForm'
 
 const toggleChecked = ({ _id, isChecked }) => {
-  Meteor.call('tasks.setChecked', _id, !isChecked)
+  tasksSetChecked.call({ taskId: _id, isChecked: !isChecked }, (err, res) => {
+    if (err) {
+      alert(err)
+    } else {
+      console.log('checked')
+    }
+  })
 }
 
 const togglePrivate = ({ _id, isPrivate }) => {
   Meteor.call('tasks.setPrivate', _id, !isPrivate)
 }
 
-const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id)
+const deleteTask = ({ _id }) =>
+  tasksRemove.call({ taskId: _id }, (err, res) => {
+    if (err) {
+      alert(err)
+    } else {
+      console.log('removed')
+    }
+  })
 
 export const App = () => {
   const filter = {}
