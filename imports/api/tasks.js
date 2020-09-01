@@ -68,28 +68,15 @@ export const tasksSetChecked = new ValidatedMethod({
   },
 })
 
-Meteor.methods({
-  'tasks.setChecked2'(taskId, isChecked) {
-    check(taskId, String)
-    check(isChecked, Boolean)
+export const tasksSetPrivate = new ValidatedMethod({
+  name: 'tasks.setPrivate',
 
-    const task = Tasks.findOne(taskId)
+  validate: new SimpleSchema({
+    taskId: { type: String },
+    isPrivate: { type: Boolean },
+  }).validator(),
 
-    if (task.isPrivate && task.owner !== this.userId) {
-      throw new Meteor.Error('Not authorized.')
-    }
-
-    Tasks.update(taskId, {
-      $set: {
-        isChecked,
-      },
-    })
-  },
-
-  'tasks.setPrivate'(taskId, isPrivate) {
-    check(taskId, String)
-    check(isPrivate, Boolean)
-
+  run({ taskId, isPrivate }) {
     const task = Tasks.findOne(taskId)
 
     if (!this.userId || task.owner !== this.userId) {

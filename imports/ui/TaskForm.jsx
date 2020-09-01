@@ -11,8 +11,6 @@ export const TaskForm = () => {
     tasksInsert.call({ text }, (err, res) => {
       if (err) {
         alert(err)
-      } else {
-        console.log('ok')
       }
     })
 
